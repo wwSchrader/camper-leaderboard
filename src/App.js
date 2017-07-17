@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
+import UserStats from './UserStats.js';
 
 class App extends Component {
   constructor(props) {
       super(props);
 
       this.state = {
-        userArray: ''
+        userArray: []
       };
     }
 
@@ -23,7 +24,6 @@ class App extends Component {
       })
       .then(function(data) {
         that.setState({ userArray: data});
-        console.log(that.state.userArray)
       });
     }
 
@@ -32,10 +32,15 @@ class App extends Component {
     return (
       <div className="App">
         <table>
-          <th>#</th>
-          <th>Camper Name</th>
-          <th>Points in the past 30 days</th>
-          <th>All time points</th>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Camper Name</th>
+              <th>Points in the past 30 days</th>
+              <th>All time points</th>
+            </tr>
+          </thead>
+          <UserStats userStatus={this.state.userArray} />
         </table>
       </div>
     );
