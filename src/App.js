@@ -7,15 +7,24 @@ class App extends Component {
       super(props);
 
       this.state = {
-        userArray: []
+        userArray: [],
+        recentPointsArray: [],
+        alltimePointsArray: []
       };
+
+      this.onFilterClick = this.onFilterClick.bind(this);
     }
 
     componentDidMount() {
-      var url = 'https://fcctop100.herokuapp.com/api/fccusers/top/recent';
-      var that = this;
+      this.fetchData();
+    }
 
-      fetch(url)
+    fetchData() {
+      var that = this;
+      var recentUrl = 'https://fcctop100.herokuapp.com/api/fccusers/top/recent';
+      var alltimeUrl = 'https://fcctop100.herokuapp.com/api/fccusers/top/alltime';
+
+      fetch(recentUrl)
       .then(function(response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -23,12 +32,37 @@ class App extends Component {
         return response.json();
       })
       .then(function(data) {
-        that.setState({ userArray: data});
+        that.setState({
+          userArray: data,
+          recentPointsArray: data});
+      });
+
+
+      fetch(alltimeUrl)
+      .then(function(response) {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        that.setState({ alltimePointsArray: data});
       });
     }
 
-  render() {
+    onFilterClick(filter) {
+      if ('recent' === filter){
+        this.setState({
+          userArray: this.state.recentPointsArray
+        });
+      } else {
+        this.setState({
+          userArray: this.state.alltimePointsArray
+        });
+      }
+    }
 
+  render() {
     return (
       <div className="App">
         <table>
@@ -36,8 +70,8 @@ class App extends Component {
             <tr>
               <th>#</th>
               <th>Camper Name</th>
-              <th>Points in the past 30 days</th>
-              <th>All time points</th>
+              <th onClick={() => this.onFilterClick('recent')}>Points in the past 30 days</th>
+              <th onClick={() => this.onFilterClick('alltime')}>All time points</th>
             </tr>
           </thead>
           <UserStats userStatus={this.state.userArray} />
