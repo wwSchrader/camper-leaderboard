@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import UserStats from './UserStats.js';
+import { Table } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <table>
+        <Table striped bordered>
           <thead>
             <tr>
               <th>#</th>
@@ -75,7 +76,7 @@ class App extends Component {
             </tr>
           </thead>
           <UserStats userStatus={this.state.userArray} />
-        </table>
+        </Table>
       </div>
     );
   }
