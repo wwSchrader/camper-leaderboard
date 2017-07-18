@@ -66,7 +66,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Table striped bordered>
+        <Table striped bordered condensed hover>
           <thead>
             <tr>
               <th>#</th>
