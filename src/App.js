@@ -66,6 +66,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>freeCodeCamp Leader Board</h1>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
