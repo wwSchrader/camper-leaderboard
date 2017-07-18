@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import UserStats from './UserStats.js';
-import { Table } from 'react-bootstrap';
+import { Table, Glyphicon} from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -72,8 +72,8 @@ class App extends Component {
             <tr>
               <th>#</th>
               <th>Camper Name</th>
-              <th onClick={() => this.onFilterClick('recent')}>Points in the past 30 days</th>
-              <th onClick={() => this.onFilterClick('alltime')}>All time points</th>
+              <th onClick={() => this.onFilterClick('recent')}>Points in the past 30 days <Glyphicon glyph="sort-by-attributes" /></th>
+              <th onClick={() => this.onFilterClick('alltime')}>All time points <Glyphicon glyph="sort-by-attributes" /></th>
             </tr>
           </thead>
           <UserStats userStatus={this.state.userArray} />
